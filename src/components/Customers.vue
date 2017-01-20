@@ -1,28 +1,28 @@
 <template>
   <div class="customers container">
-    <h1 class="page-header">{{ titlePage }}</h1>
+    <h1 class="page-header">{{ $t('customerListPageTitle', $lang) }}</h1>
     <table class="table" v-if="customers.length > 0">
       <thead>
       <tr>
-        <th>{{ full_name }}</th>
-        <th>{{ email }}</th>
-        <th>{{ phone }}</th>
-        <th>{{ address }}</th>
-        <th>{{ actions }}</th>
+        <th>{{ $t("fullName", $lang) }}</th>
+        <th>{{ $t("email", $lang) }}</th>
+        <th>{{ $t("phone", $lang) }}</th>
+        <th>{{ $t("address", $lang) }}</th>
+        <th>{{ $t("actions", $lang) }}</th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="customer in customers" :key="customer.id">
         <td>{{ `${customer.first_name} ${customer.last_name}`}}</td>
-        <td><a v-bind:href="'mailto:' + customer.email" target="_blank">{{ customer.email }}</a></td>
-        <td><a v-bind:href="'tel:' + customer.phone">{{ customer.phone }}</a></td>
+        <td><a :href="'mailto:' + customer.email" target="_blank">{{ customer.email }}</a></td>
+        <td><a :href="'tel:' + customer.phone">{{ customer.phone }}</a></td>
         <td>
           {{ customer.address }}, {{ customer.city }}, {{ customer.state }}
         </td>
         <td>
-          <router-link class="btn btn-primary btn-xs" v-bind:to="'/read/' + customer.id">{{ readMoreBtn }}</router-link>
-          <router-link class="btn btn-success btn-xs" v-bind:to="'/edit/' + customer.id">{{ editBtn }}</router-link>
-          <button class="btn btn-danger btn-xs" @click="removeCustomer(customer.id)">{{ deleteBtn }}</button>
+          <router-link class="btn btn-primary btn-xs" :to="'/read/' + customer.id">{{ $t("readMoreBtn", $lang) }}</router-link>
+          <router-link class="btn btn-success btn-xs" :to="'/edit/' + customer.id">{{ $t("editBtn", $lang) }}</router-link>
+          <button class="btn btn-danger btn-xs" @click="removeCustomer(customer.id)">{{ $t("deleteBtn", $lang) }}</button>
         </td>
       </tr>
       </tbody>
@@ -39,33 +39,6 @@
     computed: {
       customers(){
         return this.$store.state.customers
-      },
-      full_name(){
-        return this.$t("fullName", this.$lang)
-      },
-      email(){
-        return this.$t("email", this.$lang)
-      },
-      phone(){
-        return this.$t("phone", this.$lang)
-      },
-      address(){
-        return this.$t("address", this.$lang)
-      },
-      actions(){
-        return this.$t("actions", this.$lang)
-      },
-      titlePage(){
-        return this.$t("customerListPageTitle", this.$lang)
-      },
-      readMoreBtn(){
-        return this.$t("readMoreBtn", this.$lang)
-      },
-      editBtn(){
-        return this.$t("editBtn", this.$lang)
-      },
-      deleteBtn(){
-        return this.$t("deleteBtn", this.$lang)
       }
     },
     methods: {

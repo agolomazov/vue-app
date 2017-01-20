@@ -1,33 +1,33 @@
 <template>
   <div class="add container">
-    <h1 class="page-header">{{ addCustomerPageTitle }}</h1>
+    <h1 class="page-header">{{ $t('addCustomerLink', $lang) }}</h1>
     <form v-on:submit="addCustomer">
 
       <div class="row">
 
         <div class="well col-lg-5">
-          <h4>{{ customerInfoFieldsetTitle }}</h4>
+          <h4>{{ $t('customerInfoFieldsetTitle', $lang) }}</h4>
           <div class="form-group">
-            <label for="first_name">{{ firstNameInputLabel }}</label>
+            <label for="first_name">{{ $t('firstNameInputLabel', $lang) }}</label>
             <input v-model="customer.first_name" type="text" class="form-control" placeholder="First Name"
                    id="first_name" tabindex="1">
           </div>
           <div class="form-group">
-            <label for="last_name">{{ lastNameInputLabel }}</label>
+            <label for="last_name">{{ $t('lastNameInputLabel', $lang) }}</label>
             <input v-model="customer.last_name" type="text" class="form-control" placeholder="Last Name" id="last_name"
                    tabindex="2">
           </div>
         </div>
 
         <div class="well col-lg-5 col-lg-offset-2">
-          <h4>{{ customerContactFieldSetTitle }}</h4>
+          <h4>{{ $t('customerContactFieldSetTitle', $lang) }}</h4>
           <div class="form-group">
-            <label for="email">{{ emailInputLabel }}</label>
+            <label for="email">{{ $t('emailInputLabel', $lang) }}</label>
             <input v-model="customer.email" type="email" class="form-control" placeholder="example@mail.ru" id="email"
                    tabindex="3">
           </div>
           <div class="form-group">
-            <label for="phone">{{ phoneInputLabel }}</label>
+            <label for="phone">{{ $t('phoneInputLabel', $lang) }}</label>
             <input v-model="customer.phone" type="text"
                    v-mask="'+7(###)-###-##-##'"
                    class="form-control" placeholder="+79818554646" id="phone"
@@ -38,20 +38,20 @@
 
       <div class="row">
         <div class="well col-lg-5">
-          <h4>{{ locationFieldsSetTitle }}</h4>
+          <h4>{{ $t('locationFieldsSetTitle', $lang) }}</h4>
           <div class="form-group">
-            <label for="address">{{ addressInputLabel }}</label>
+            <label for="address">{{ $t('addressInputLabel', $lang) }}</label>
             <input v-model="customer.address" type="text" class="form-control" placeholder="Your address" id="address"
                    tabindex="5">
           </div>
           <div class="form-group">
-            <label for="city">{{ cityInputLabel }}</label>
+            <label for="city">{{ $t('cityInputLabel', $lang) }}</label>
             <input v-model="customer.city" type="text" class="form-control" placeholder="City name" id="city"
                    tabindex="6">
           </div>
 
           <div class="form-group">
-            <label for="state">{{ stateInputLabel }}</label>
+            <label for="state">{{ $t('stateInputLabel', $lang) }}</label>
             <input v-model="customer.state" type="text" class="form-control" placeholder="State title" id="state"
                    tabindex="7">
           </div>
@@ -114,39 +114,6 @@
     computed: {
       disabledSubmit: function () {
         return !this.isEmpty(this.customer.first_name) || !this.isEmpty(this.customer.last_name) || !this.validateEmail(this.customer.email) || !this.validatePhone(this.customer.phone) || !this.isEmpty(this.customer.address) || !this.isEmpty(this.customer.city) || !this.isEmpty(this.customer.state)
-      },
-      addCustomerPageTitle(){
-        return this.$t("addCustomerLink", this.$lang)
-      },
-      customerInfoFieldsetTitle(){
-        return this.$t("customerInfoFieldsetTitle", this.$lang)
-      },
-      firstNameInputLabel(){
-        return this.$t("firstNameInputLabel", this.$lang)
-      },
-      lastNameInputLabel(){
-        return this.$t("lastNameInputLabel", this.$lang)
-      },
-      customerContactFieldSetTitle(){
-        return this.$t("customerContactFieldSetTitle", this.$lang)
-      },
-      emailInputLabel(){
-        return this.$t("emailInputLabel", this.$lang)
-      },
-      phoneInputLabel(){
-        return this.$t("phoneInputLabel", this.$lang)
-      },
-      locationFieldsSetTitle(){
-        return this.$t("locationFieldsSetTitle", this.$lang)
-      },
-      addressInputLabel(){
-        return this.$t("addressInputLabel", this.$lang)
-      },
-      cityInputLabel(){
-        return this.$t("cityInputLabel", this.$lang)
-      },
-      stateInputLabel(){
-        return this.$t("stateInputLabel", this.$lang)
       }
     }
   }
