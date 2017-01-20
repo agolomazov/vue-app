@@ -33,16 +33,19 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li>
-            <router-link to="/">Customers</router-link>
+            <router-link to="/">{{ customerLink }}</router-link>
           </li>
           <li>
-            <router-link to="/about">About</router-link>
+            <router-link to="/about">{{ aboutLinkLabel }}</router-link>
+          </li>
+          <li>
+            <a href="#" @click="switchUI">{{ switchLang }}</a>
           </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <router-link to="/add">Add Customer</router-link>
+            <router-link to="/add">{{ addCustomerLink }}</router-link>
           </li>
         </ul>
       </div><!--/.nav-collapse -->

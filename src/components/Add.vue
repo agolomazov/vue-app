@@ -1,33 +1,33 @@
 <template>
   <div class="add container">
-    <h1 class="page-header">Add Customer</h1>
+    <h1 class="page-header">{{ addCustomerPageTitle }}</h1>
     <form v-on:submit="addCustomer">
 
       <div class="row">
 
         <div class="well col-lg-5">
-          <h4>Customer Info</h4>
+          <h4>{{ customerInfoFieldsetTitle }}</h4>
           <div class="form-group">
-            <label for="first_name">First Name</label>
+            <label for="first_name">{{ firstNameInputLabel }}</label>
             <input v-model="customer.first_name" type="text" class="form-control" placeholder="First Name"
                    id="first_name" tabindex="1">
           </div>
           <div class="form-group">
-            <label for="last_name">Last Name</label>
+            <label for="last_name">{{ lastNameInputLabel }}</label>
             <input v-model="customer.last_name" type="text" class="form-control" placeholder="Last Name" id="last_name"
                    tabindex="2">
           </div>
         </div>
 
         <div class="well col-lg-5 col-lg-offset-2">
-          <h4>Customer contacts</h4>
+          <h4>{{ customerContactFieldSetTitle }}</h4>
           <div class="form-group">
-            <label for="email">Email</label>
+            <label for="email">{{ emailInputLabel }}</label>
             <input v-model="customer.email" type="email" class="form-control" placeholder="example@mail.ru" id="email"
                    tabindex="3">
           </div>
           <div class="form-group">
-            <label for="phone">Phone</label>
+            <label for="phone">{{ phoneInputLabel }}</label>
             <input v-model="customer.phone" type="text"
                    v-mask="'+7(###)-###-##-##'"
                    class="form-control" placeholder="+79818554646" id="phone"
@@ -38,20 +38,20 @@
 
       <div class="row">
         <div class="well col-lg-5">
-          <h4>Location</h4>
+          <h4>{{ locationFieldsSetTitle }}</h4>
           <div class="form-group">
-            <label for="address">Address</label>
+            <label for="address">{{ addressInputLabel }}</label>
             <input v-model="customer.address" type="text" class="form-control" placeholder="Your address" id="address"
                    tabindex="5">
           </div>
           <div class="form-group">
-            <label for="city">City</label>
+            <label for="city">{{ cityInputLabel }}</label>
             <input v-model="customer.city" type="text" class="form-control" placeholder="City name" id="city"
                    tabindex="6">
           </div>
 
           <div class="form-group">
-            <label for="state">State</label>
+            <label for="state">{{ stateInputLabel }}</label>
             <input v-model="customer.state" type="text" class="form-control" placeholder="State title" id="state"
                    tabindex="7">
           </div>
@@ -114,6 +114,39 @@
     computed: {
       disabledSubmit: function () {
         return !this.isEmpty(this.customer.first_name) || !this.isEmpty(this.customer.last_name) || !this.validateEmail(this.customer.email) || !this.validatePhone(this.customer.phone) || !this.isEmpty(this.customer.address) || !this.isEmpty(this.customer.city) || !this.isEmpty(this.customer.state)
+      },
+      addCustomerPageTitle(){
+        return this.$t("addCustomerLink", this.$lang)
+      },
+      customerInfoFieldsetTitle(){
+        return this.$t("customerInfoFieldsetTitle", this.$lang)
+      },
+      firstNameInputLabel(){
+        return this.$t("firstNameInputLabel", this.$lang)
+      },
+      lastNameInputLabel(){
+        return this.$t("lastNameInputLabel", this.$lang)
+      },
+      customerContactFieldSetTitle(){
+        return this.$t("customerContactFieldSetTitle", this.$lang)
+      },
+      emailInputLabel(){
+        return this.$t("emailInputLabel", this.$lang)
+      },
+      phoneInputLabel(){
+        return this.$t("phoneInputLabel", this.$lang)
+      },
+      locationFieldsSetTitle(){
+        return this.$t("locationFieldsSetTitle", this.$lang)
+      },
+      addressInputLabel(){
+        return this.$t("addressInputLabel", this.$lang)
+      },
+      cityInputLabel(){
+        return this.$t("cityInputLabel", this.$lang)
+      },
+      stateInputLabel(){
+        return this.$t("stateInputLabel", this.$lang)
       }
     }
   }

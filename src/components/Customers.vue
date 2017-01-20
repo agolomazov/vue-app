@@ -1,15 +1,14 @@
 <template>
   <div class="customers container">
-    <h1 class="page-header">Customers manager
-    </h1>
+    <h1 class="page-header">{{ titlePage }}</h1>
     <table class="table" v-if="customers.length > 0">
       <thead>
       <tr>
-        <th>FullName</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Address</th>
-        <th>Actions</th>
+        <th>{{ full_name }}</th>
+        <th>{{ email }}</th>
+        <th>{{ phone }}</th>
+        <th>{{ address }}</th>
+        <th>{{ actions }}</th>
       </tr>
       </thead>
       <tbody>
@@ -21,9 +20,9 @@
           {{ customer.address }}, {{ customer.city }}, {{ customer.state }}
         </td>
         <td>
-          <router-link class="btn btn-primary btn-xs" v-bind:to="'/read/' + customer.id">Read more</router-link>
-          <router-link class="btn btn-success btn-xs" v-bind:to="'/edit/' + customer.id">Edit</router-link>
-          <button class="btn btn-danger btn-xs" @click="removeCustomer(customer.id)">Delete</button>
+          <router-link class="btn btn-primary btn-xs" v-bind:to="'/read/' + customer.id">{{ readMoreBtn }}</router-link>
+          <router-link class="btn btn-success btn-xs" v-bind:to="'/edit/' + customer.id">{{ editBtn }}</router-link>
+          <button class="btn btn-danger btn-xs" @click="removeCustomer(customer.id)">{{ deleteBtn }}</button>
         </td>
       </tr>
       </tbody>
@@ -40,6 +39,33 @@
     computed: {
       customers(){
         return this.$store.state.customers
+      },
+      full_name(){
+        return this.$t("fullName", this.$lang)
+      },
+      email(){
+        return this.$t("email", this.$lang)
+      },
+      phone(){
+        return this.$t("phone", this.$lang)
+      },
+      address(){
+        return this.$t("address", this.$lang)
+      },
+      actions(){
+        return this.$t("actions", this.$lang)
+      },
+      titlePage(){
+        return this.$t("customerListPageTitle", this.$lang)
+      },
+      readMoreBtn(){
+        return this.$t("readMoreBtn", this.$lang)
+      },
+      editBtn(){
+        return this.$t("editBtn", this.$lang)
+      },
+      deleteBtn(){
+        return this.$t("deleteBtn", this.$lang)
       }
     },
     methods: {

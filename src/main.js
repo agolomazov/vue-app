@@ -2,17 +2,24 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
 import router from './router'
 import VueMask from 'v-mask'
 import Vuex from 'vuex'
 import axios from 'axios'
+import VueI18n from 'vue-i18n'
+import locales from './locales'
 
 
-Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(VueMask)
 Vue.use(Vuex)
+Vue.use(VueI18n)
+
+Vue.config.lang = 'en'
+
+Object.keys(locales).forEach(function (lang) {
+  Vue.locale(lang, locales[lang])
+})
 
 const store = new Vuex.Store({
   state: {
@@ -69,5 +76,29 @@ const store = new Vuex.Store({
 
 const app = new Vue({
   router: router,
-  store
+  store,
+  computed: {
+    switchLang(){
+      return Vue.config.lang == 'en' ? 'Russian version' : 'English version'
+    },
+    customerLink(){
+      return this.$t("customerListPageTitle", this.$lang)
+    },
+    aboutLinkLabel(){
+      return this.$t("aboutLinkLabel", this.$lang)
+    },
+    addCustomerLink(){
+      return this.$t("addCustomerLink", this.$lang)
+    }
+  },
+  methods: {
+    switchUI(e){
+      e.preventDefault()
+      if(Vue.config.lang == 'en'){
+        Vue.config.lang = 'ru'
+      } else {
+        Vue.config.lang = 'en'
+      }
+    }
+  }
 }).$mount('#app')
