@@ -1,15 +1,16 @@
 <template>
   <div class="customers container">
-    <h1 class="page-header">Customers manager</h1>
+    <h1 class="page-header">Customers manager
+    </h1>
     <table class="table" v-if="customers.length > 0">
       <thead>
-        <tr>
-          <th>FullName</th>
-          <th>Email</th>
-          <th>Phone</th>
-          <th>Address</th>
-          <th>Actions</th>
-        </tr>
+      <tr>
+        <th>FullName</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Actions</th>
+      </tr>
       </thead>
       <tbody>
       <tr v-for="customer in customers" :key="customer.id">
@@ -22,7 +23,7 @@
         <td>
           <router-link class="btn btn-primary btn-xs" v-bind:to="'/read/' + customer.id">Read more</router-link>
           <router-link class="btn btn-success btn-xs" v-bind:to="'/edit/' + customer.id">Edit</router-link>
-          <button class="btn btn-danger btn-xs" @click="deleteCustomer(customer.id)">Delete</button>
+          <button class="btn btn-danger btn-xs" @click="removeCustomer(customer.id)">Delete</button>
         </td>
       </tr>
       </tbody>
@@ -32,37 +33,26 @@
 </template>
 
 <script>
-import axios from 'axios'
+  import { mapMutations } from 'vuex'
 
-export default {
-  name: 'customers',
-  data () {
-    return {
-      customers: []
-    }
-  },
-  methods: {
-    fetchCustomers(){
-      var self = this
-      axios.get('http://customers-rest.local/api/customers')
-        .then(function (response) {
-          console.log(response.data)
-          response.data.forEach((item) => {
-            self.customers.push(item)
-          })
-        })
+  export default {
+    name: 'customers',
+    computed: {
+      customers(){
+        return this.$store.state.customers
+      }
     },
-    deleteCustomer(id){
-      let self = this
-      axios.delete('http://customers-rest.local/api/customer/delete/' + id).then(function(){
-        self.customers = self.customers.filter(function (customer) {
-          return customer.id !== id
-        })
-      })
+    methods: {
+      removeCustomer(id){
+        this.deleteCustomer({ id: id })
+      },
+      ...mapMutations([
+        'fetchAllCustomers',
+        'deleteCustomer'
+      ])
+    },
+    created() {
+      this.fetchAllCustomers()
     }
-  },
-  created() {
-     this.fetchCustomers()
   }
-}
 </script>

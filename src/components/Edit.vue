@@ -2,7 +2,7 @@
   <div class="add container">
     <h1 class="page-header">Edit Customer
       <router-link v-bind:to="'/read/' + $route.params.id" class="btn btn-sm btn-primary pull-right">Read</router-link>
-      <button @click="deleteCustomer" class="btn btn-danger pull-right btn-sm" style="margin-right: 10px">Delete</button>
+      <button @click="removeCustomer" class="btn btn-danger pull-right btn-sm" style="margin-right: 10px">Delete</button>
     </h1>
     <form v-on:submit="editCustomer">
       <div class="well">
@@ -50,90 +50,47 @@
       </div>
 
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" v-bind:disabled="disabledSubmit">Edit customer</button>
+        <button type="submit" class="btn btn-primary">Edit customer</button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'edit',
-  data () {
-    return {
-      customer: {
-        first_name: '',
-        last_name: '',
-        email: '',
-        phone: '',
-        address: '',
-        city: '',
-        state: ''
-      }
-    }
-  },
   methods: {
     editCustomer: function (e) {
-      e.preventDefault()
-      let requestUrl = 'http://customers-rest.local/api/customer/update/' + this.$route.params.id
       let self = this
-      let updatecustomer = Object.assign({}, this.customer)
-      this.$http.put(requestUrl, updatecustomer).then(function (response) {
-          self.$router.push({ path: '/' })
+      e.preventDefault()
+      self.updateCustomer({
+        id: this.$route.params.id,
+        updatecustomer: this.customer
       })
-    },
-    validateEmail: function(value){
-      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-      return re.test(value)
-    },
-    isEmpty: function (value) {
-      return value.trim() !== ''
-    },
-    validatePhone: function (value) {
-      var re = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
-      return re.test(value)
     },
     fetchCustomer(){
-      let self = this
-      let urlRequest = 'http://customers-rest.local/api/customer/' + this.$route.params.id
-      axios.get(urlRequest).then(function (response) {
-        let responseData = response.data
-        if(!responseData){
-          this.$router.push({ path: '/' })
-          return
-        }
-
-        self.customer = responseData
-
-      })
+      this.setCurrentCustomer({ id: this.$route.params.id })
     },
-    deleteCustomer(){
-      let requestUrl = 'http://customers-rest.local/api/customer/delete/' + this.customerId
-      let self = this
-      axios.delete(requestUrl).then(function (response) {
-        self.$router.push({ path: '/' })
-      })
-    }
+    removeCustomer(){
+      this.deleteCustomer({ id: this.$route.params.id })
+    },
+  ...mapMutations([
+    'deleteCustomer',
+    'setCurrentCustomer',
+    'updateCustomer'
+  ])
   },
   mounted: function () {
     document.getElementById('first_name').focus()
   },
   created(){
-    this.fetchCustomer()
+    this.setCurrentCustomer({ id: this.$route.params.id })
   },
   computed: {
-    disabledSubmit: function () {
-      return  !this.isEmpty(this.customer.first_name) ||
-              !this.isEmpty(this.customer.last_name)  ||
-              !this.validateEmail(this.customer.email) ||
-              !this.validatePhone(this.customer.phone) ||
-              !this.isEmpty(this.customer.address) ||
-              !this.isEmpty(this.customer.city) ||
-              !this.isEmpty(this.customer.state)
-    },
-    customerId: function () {
-      return this.$route.params.id
+    customer (){
+      return this.$store.state.currentCustomer
     }
   }
 }

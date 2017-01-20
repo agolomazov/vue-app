@@ -1,7 +1,7 @@
 <template>
   <div class="contact-info" >
     <h1 class="page-header">Read customer info
-      <button @click="deleteCustomer" class="btn btn-danger pull-right btn-sm">Delete</button>
+      <button @click="removeCustomer" class="btn btn-danger pull-right btn-sm">Delete</button>
       <router-link v-bind:to="'/edit/' + $route.params.id" class="btn btn-sm btn-success pull-right" style="margin-right: 10px">Edit</router-link>
     </h1>
     <p class="bg-warning" style="padding: 10px">
@@ -14,41 +14,30 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import { mapMutations } from 'vuex'
 
   export default {
     name: 'read',
-    data(){
-      return {
-        customer: { }
+    computed: {
+      customer(){
+        return this.$store.state.currentCustomer
       }
     },
     methods: {
       fetchCustomer(){
         let self = this
-        let urlRequest = 'http://customers-rest.local/api/customer/' + this.$route.params.id
-
-        axios.get(urlRequest).then(function (response) {
-          let responseData = response.data
-          if(!responseData){
-            this.$router.push({ path: '/' })
-            return
-          }
-
-          self.customer = responseData
-
-        })
       },
-      deleteCustomer(){
-        let urlRequest = 'http://customers-rest.local/api/customer/delete/' + this.$route.params.id
-        let self = this
-        axios.delete(urlRequest).then(function () {
-          self.$router.push({ path: '/' })
-        })
-      }
+      removeCustomer(){
+        this.deleteCustomer({ id: this.$route.params.id })
+        this.$router.push({ path: '/' })
+      },
+      ...mapMutations([
+        'deleteCustomer',
+        'setCurrentCustomer'
+      ])
     },
     created(){
-      this.fetchCustomer()
+      this.setCurrentCustomer({ id: this.$route.params.id })
     }
   }
 </script>

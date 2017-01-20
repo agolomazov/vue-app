@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import axios from 'axios'
+  import { mapMutations } from 'vuex'
 
   export default {
     name: 'add',
@@ -90,12 +90,7 @@
       addCustomer: function (e) {
         e.preventDefault()
         let newCustomer = Object.assign({}, this.customer)
-        let self = this
-        axios.post('http://customers-rest.local/api/customer/add', newCustomer).then(
-          function (response) {
-            self.$router.push({path: '/'})
-          }
-        )
+        this.add({ newCustomer })
       },
       validateEmail: function (value) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -107,7 +102,11 @@
       validatePhone: function (value) {
         var re = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
         return re.test(value)
-      }
+      },
+      ...mapMutations({
+          add: 'addCustomer'
+        }
+      )
     },
     mounted: function () {
       document.getElementById('first_name').focus()
