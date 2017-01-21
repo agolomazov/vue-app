@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group col-lg-5 col-lg-offset-2">
-          <button type="submit" class="btn btn-primary" v-bind:disabled="disabledSubmit">Add customer</button>
+          <button type="submit" class="btn btn-primary" v-bind:disabled="disabledSubmit">{{ $t('addCustomerBtnLabel', $lang) }}</button>
         </div>
       </div>
 

@@ -9,10 +9,13 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.15.3",
+    "v-mask": "^1.0.2",
     "vue": "^2.1.0",
     "vue-i18n": "^4.10.0",
     "vue-resource": "^1.0.3",
-    "vue-router": "^2.1.1"
+    "vue-router": "^2.1.1",
+    "vuex": "^2.1.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

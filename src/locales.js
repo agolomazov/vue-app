@@ -12,6 +12,8 @@ export default {
     aboutLinkLabel: 'About',
     addCustomerLink: 'Add Customer',
     addCustomerPageTitle: 'Add Customer',
+    editCustomerPageTitle: 'Edit Customer',
+    readCustomerPageTitle: 'Read Customer',
     customerInfoFieldsetTitle: 'Customer Info',
     firstNameInputLabel: 'First Name',
     lastNameInputLabel: 'Last Name',
@@ -21,7 +23,9 @@ export default {
     locationFieldsSetTitle: 'Location',
     addressInputLabel: 'Address',
     cityInputLabel: 'City',
-    stateInputLabel: 'State'
+    stateInputLabel: 'State',
+    addCustomerBtnLabel: 'Add customer',
+    editCustomerBtnLabel: 'Edit customer'
   },
   ru: {
     fullName: 'Полное имя',
@@ -36,6 +40,8 @@ export default {
     aboutLinkLabel: 'О нас',
     addCustomerLink: 'Добавить покупателя',
     addCustomerPageTitle: 'Добавление покупателя',
+    editCustomerPageTitle: 'Редактирование покупателя',
+    readCustomerPageTitle: 'Подробнее о покупателе',
     customerInfoFieldsetTitle: 'Информация о пользователе',
     firstNameInputLabel: 'Имя покупателя',
     lastNameInputLabel: 'Фамилия покупателя',
@@ -45,6 +51,8 @@ export default {
     locationFieldsSetTitle: 'Место проживания',
     addressInputLabel: 'Адрес',
     cityInputLabel: 'Город',
-    stateInputLabel: 'Область / Регион'
+    stateInputLabel: 'Область / Регион',
+    addCustomerBtnLabel: 'Добавить покупателя',
+    editCustomerBtnLabel: 'Редактировать покупателя'
   }
 }
