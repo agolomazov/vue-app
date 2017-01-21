@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import Vue from 'vue'
 import axios from 'axios'
 const API_URL = 'http://customers.rest/api/'
 
@@ -28,14 +29,9 @@ export default {
     setCurrentCustomer(state, playload){
       let urlRequest = API_URL + 'customer/' + playload.id
       axios.get(urlRequest).then(function (response) {
-        let responseData = response.data
-        if(!responseData){
-          Vuex.router.push({ path: '/' })
-          return
+        if(response.data){
+          state.currentCustomer = response.data
         }
-
-        state.currentCustomer = responseData
-
       })
     },
     updateCustomer(state, playload){

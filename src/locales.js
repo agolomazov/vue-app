@@ -28,7 +28,8 @@ export default {
     editCustomerBtnLabel: 'Edit customer',
     deleteCustomerMessage: 'Buyer data has been successfully removed',
     addCustomerMessage: 'Buyer data successfully added',
-    updateCustomerMessage: 'Buyer data successfully updated'
+    updateCustomerMessage: 'Buyer data successfully updated',
+    error404: '404 - This buyer is not in the database'
   },
   ru: {
     fullName: 'Полное имя',
@@ -59,6 +60,7 @@ export default {
     editCustomerBtnLabel: 'Редактировать покупателя',
     deleteCustomerMessage: 'Данные о покупателе успешно удалены',
     addCustomerMessage: 'Данные о покупателе успешно добавлены',
-    updateCustomerMessage: 'Данные о покупателе успешно обновлены'
+    updateCustomerMessage: 'Данные о покупателе успешно обновлены',
+    error404: '404 - Такого покупателя нет в базе'
   }
 }
