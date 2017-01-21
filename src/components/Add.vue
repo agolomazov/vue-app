@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'add',
@@ -90,9 +90,12 @@
       addCustomer: function (e) {
         e.preventDefault()
         let newCustomer = Object.assign({}, this.customer)
-        this.add({ newCustomer })
-        window.localStorage.setItem('toast-message', this.$t('addCustomerMessage', this.$lang))
-        this.$router.push({ path: '/' })
+        let self = this
+        self.add({ newCustomer }).then(() => {
+          window.localStorage.setItem('toast-message', self.$t('addCustomerMessage', self.$lang))
+          self.$router.push({ path: '/' })
+        })
+
       },
       validateEmail: function (value) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -105,7 +108,7 @@
         var re = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
         return re.test(value)
       },
-      ...mapMutations({
+      ...mapActions({
           add: 'addCustomer'
         }
       )

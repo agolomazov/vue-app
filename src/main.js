@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 Vue.use(VueMask)
 Vue.use(Vuex)
 Vue.use(VueI18n)
-Vue.component('vue-toastr',Toastr);
+Vue.component('vue-toastr',Toastr)
 
 const store = new Vuex.Store(storeObject)
 

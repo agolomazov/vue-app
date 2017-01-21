@@ -22,7 +22,7 @@
         <td>
           <router-link class="btn btn-primary btn-xs" :to="'/read/' + customer.id">{{ $t("readMoreBtn", $lang) }}</router-link>
           <router-link class="btn btn-success btn-xs" :to="'/edit/' + customer.id">{{ $t("editBtn", $lang) }}</router-link>
-          <button class="btn btn-danger btn-xs" @click="removeCustomer(customer.id)">{{ $t("deleteBtn", $lang) }}</button>
+          <button class="btn btn-danger btn-xs" @click="deleteCustomer(customer.id)">{{ $t("deleteBtn", $lang) }}</button>
         </td>
       </tr>
       </tbody>
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'customers',
@@ -42,13 +42,15 @@
       }
     },
     methods: {
-      removeCustomer(id){
-        this.deleteCustomer({ id: id })
-        this.$root.$refs.toastr.s(this.$t('deleteCustomerMessage', this.$lang))
+      deleteCustomer(id){
+        let self = this
+        self.removeCustomer({ id: id }).then(function() {
+          self.$root.$refs.toastr.s(self.$t('deleteCustomerMessage', self.$lang))
+        })
       },
-      ...mapMutations([
-        'fetchAllCustomers',
-        'deleteCustomer'
+      ...mapActions([
+        'getAllCustomers',
+        'removeCustomer'
       ])
     },
     created() {
@@ -57,7 +59,7 @@
         window.localStorage.removeItem('toast-message')
         this.$root.$refs.toastr.s(message)
       }
-      this.fetchAllCustomers()
+      this.getAllCustomers()
     }
   }
 </script>

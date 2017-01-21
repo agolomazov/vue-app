@@ -2,7 +2,7 @@
   <div class="contact-info">
     <div class="contant-data" v-if="issetCustomer">
       <h1 class="page-header">{{ $t('readCustomerPageTitle', $lang) }}
-        <button @click="removeCustomer" class="btn btn-danger pull-right btn-sm">{{ $t('deleteBtn', $lang) }}</button>
+        <button @click="deleteCustomer" class="btn btn-danger pull-right btn-sm">{{ $t('deleteBtn', $lang) }}</button>
         <router-link v-bind:to="'/edit/' + $route.params.id" class="btn btn-sm btn-success pull-right"
                      style="margin-right: 10px">{{ $t('editBtn', $lang) }}
         </router-link>
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import { mapMutations } from 'vuex'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'read',
@@ -36,21 +36,20 @@
       }
     },
     methods: {
-      fetchCustomer(){
+      deleteCustomer(){
         let self = this
+        self.removeCustomer({ id: self.$route.params.id }).then(() => {
+          window.localStorage.setItem('toast-message', self.$t('deleteCustomerMessage', self.$lang))
+          self.$router.push({ path: '/' })
+        })
       },
-      removeCustomer(){
-        this.deleteCustomer({ id: this.$route.params.id })
-        window.localStorage.setItem('toast-message', this.$t('deleteCustomerMessage', this.$lang))
-        this.$router.push({ path: '/' })
-      },
-      ...mapMutations([
-        'deleteCustomer',
-        'setCurrentCustomer'
+      ...mapActions([
+        'removeCustomer',
+        'getCustomer'
       ])
     },
     created(){
-      this.setCurrentCustomer({ id: this.$route.params.id })
+      this.getCustomer({ id: this.$route.params.id })
     }
   }
 

@@ -3,7 +3,7 @@
     <div class="edit-form" v-if="issetCustomer">
       <h1 class="page-header">{{ $t('editCustomerPageTitle', $lang) }}
         <router-link v-bind:to="'/read/' + $route.params.id" class="btn btn-sm btn-primary pull-right">{{ $t('readMoreBtn', $lang) }}</router-link>
-        <button @click="removeCustomer" class="btn btn-danger pull-right btn-sm" style="margin-right: 10px">{{ $t('deleteBtn', $lang) }}</button>
+        <button @click="deleteCustomer" class="btn btn-danger pull-right btn-sm" style="margin-right: 10px">{{ $t('deleteBtn', $lang) }}</button>
       </h1>
       <form v-on:submit="editCustomer">
         <div class="row">
@@ -54,6 +54,7 @@
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary">{{ $t('editCustomerBtnLabel', $lang) }}</button>
+              <button type="button" @click="editAndExit" class="btn btn-success">{{ $t('editAndSaveBtn', $lang) }}</button>
             </div>
           </div>
         </div>
@@ -67,7 +68,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'edit',
@@ -75,28 +76,39 @@ export default {
     editCustomer: function (e) {
       let self = this
       e.preventDefault()
-      self.updateCustomer({
-        id: this.$route.params.id,
-        updatecustomer: this.customer
+      return new Promise((resolve, reject) => {
+        self.updateCustomer({
+        id: self.$route.params.id,
+        updatecustomer: self.customer
+        }).then(() => {
+          self.$root.$refs.toastr.s(self.$t('updateCustomerMessage', self.$lang))
+          resolve()
+        }).catch(() => {
+          reject()
+        })
       })
-      this.$root.$refs.toastr.s(this.$t('updateCustomerMessage', this.$lang))
     },
-    fetchCustomer(){
-      this.setCurrentCustomer({ id: this.$route.params.id })
+    editAndExit(e){
+      let self = this
+      this.editCustomer(e).then(() => {
+        self.$router.push({path: '/'})
+      })
     },
-    removeCustomer(){
-      this.deleteCustomer({ id: this.$route.params.id })
-      window.localStorage.setItem('toast-message', this.$t('deleteCustomerMessage', this.$lang))
-      this.$router.push({ path: '/' })
+    deleteCustomer(){
+      let self = this
+      self.removeCustomer({ id: self.$route.params.id }).then(() => {
+        window.localStorage.setItem('toast-message', self.$t('deleteCustomerMessage', self.$lang))
+        self.$router.push({ path: '/' })
+      })
     },
-  ...mapMutations([
-    'deleteCustomer',
-    'setCurrentCustomer',
+  ...mapActions([
+    'removeCustomer',
+    'getCustomer',
     'updateCustomer'
   ])
   },
   created(){
-    this.setCurrentCustomer({ id: this.$route.params.id })
+    this.getCustomer({ id: this.$route.params.id })
   },
   computed: {
     customer (){
