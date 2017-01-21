@@ -44,6 +44,7 @@
     methods: {
       removeCustomer(id){
         this.deleteCustomer({ id: id })
+        this.$root.$refs.toastr.s(this.$t('deleteCustomerMessage', this.$lang))
       },
       ...mapMutations([
         'fetchAllCustomers',

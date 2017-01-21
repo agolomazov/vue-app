@@ -25,7 +25,10 @@ export default {
     cityInputLabel: 'City',
     stateInputLabel: 'State',
     addCustomerBtnLabel: 'Add customer',
-    editCustomerBtnLabel: 'Edit customer'
+    editCustomerBtnLabel: 'Edit customer',
+    deleteCustomerMessage: 'Buyer data has been successfully removed',
+    addCustomerMessage: 'Buyer data successfully added',
+    updateCustomerMessage: 'Buyer data successfully updated'
   },
   ru: {
     fullName: 'Полное имя',
@@ -53,6 +56,9 @@ export default {
     cityInputLabel: 'Город',
     stateInputLabel: 'Область / Регион',
     addCustomerBtnLabel: 'Добавить покупателя',
-    editCustomerBtnLabel: 'Редактировать покупателя'
+    editCustomerBtnLabel: 'Редактировать покупателя',
+    deleteCustomerMessage: 'Данные о покупателе успешно удалены',
+    addCustomerMessage: 'Данные о покупателе успешно добавлены',
+    updateCustomerMessage: 'Данные о покупателе успешно обновлены'
   }
 }

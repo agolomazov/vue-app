@@ -29,7 +29,7 @@
       },
       removeCustomer(){
         this.deleteCustomer({ id: this.$route.params.id })
-        window.localStorage.setItem('toast-message', 'Данные о покупателе успешно удалены')
+        window.localStorage.setItem('toast-message', this.$t('deleteCustomerMessage', this.$lang))
         this.$router.push({ path: '/' })
       },
       ...mapMutations([

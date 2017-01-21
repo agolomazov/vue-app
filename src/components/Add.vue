@@ -91,7 +91,7 @@
         e.preventDefault()
         let newCustomer = Object.assign({}, this.customer)
         this.add({ newCustomer })
-        window.localStorage.setItem('toast-message', 'Данные о покупателе успешно добавлены в базу')
+        window.localStorage.setItem('toast-message', this.$t('addCustomerMessage', this.$lang))
         this.$router.push({ path: '/' })
       },
       validateEmail: function (value) {
