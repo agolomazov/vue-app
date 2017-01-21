@@ -39,17 +39,10 @@ export default {
       })
     },
     updateCustomer(state, playload){
-      let requestUrl = API_URL + 'customer/update/' + playload.id
-      axios.put(requestUrl, playload.updatecustomer).then( () => {
-        app.$router.push({ path: '/' })
-      })
+      axios.put(API_URL + 'customer/update/' + playload.id, playload.updatecustomer)
     },
     addCustomer(state, playload){
-      axios.post(API_URL + 'customer/add', playload.newCustomer).then(
-        function (response) {
-          app.$router.push({ path: '/' })
-        }
-      )
+      axios.post(API_URL + 'customer/add', playload.newCustomer)
     }
   }
 }
