@@ -51,6 +51,11 @@
       ])
     },
     created() {
+      if(window.localStorage.getItem('toast-message')){
+        var message = window.localStorage.getItem('toast-message')
+        window.localStorage.removeItem('toast-message')
+        this.$root.$refs.toastr.s(message)
+      }
       this.fetchAllCustomers()
     }
   }

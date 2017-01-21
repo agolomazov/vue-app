@@ -8,11 +8,14 @@ import Vuex from 'vuex'
 import VueI18n from 'vue-i18n'
 import locales from './locales'
 import storeObject from './store'
+import Toastr from 'vue-toastr'
+require('vue-toastr/dist/vue-toastr.css')
 
 Vue.use(VueRouter)
 Vue.use(VueMask)
 Vue.use(Vuex)
 Vue.use(VueI18n)
+Vue.component('vue-toastr',Toastr);
 
 const store = new Vuex.Store(storeObject)
 

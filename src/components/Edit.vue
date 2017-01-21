@@ -74,12 +74,15 @@ export default {
         id: this.$route.params.id,
         updatecustomer: this.customer
       })
+      this.$root.$refs.toastr.s("Данные о покупателе успешно обновлены")
     },
     fetchCustomer(){
       this.setCurrentCustomer({ id: this.$route.params.id })
     },
     removeCustomer(){
       this.deleteCustomer({ id: this.$route.params.id })
+      window.localStorage.setItem('toast-message', 'Данные о покупателе успешно удалены')
+      this.$router.push({ path: '/' })
     },
   ...mapMutations([
     'deleteCustomer',

@@ -91,6 +91,8 @@
         e.preventDefault()
         let newCustomer = Object.assign({}, this.customer)
         this.add({ newCustomer })
+        window.localStorage.setItem('toast-message', 'Данные о покупателе успешно добавлены в базу')
+        this.$router.push({ path: '/' })
       },
       validateEmail: function (value) {
         var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
