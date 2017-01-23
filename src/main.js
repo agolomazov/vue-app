@@ -7,7 +7,6 @@ import VueMask from 'v-mask'
 import Vuex from 'vuex'
 import VueI18n from 'vue-i18n'
 import locales from './locales'
-import storeObject from './store'
 import Toastr from 'vue-toastr'
 require('vue-toastr/dist/vue-toastr.css')
 import CustomerModuleStore from './stores/customers'
