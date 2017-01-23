@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { API_URL } from '../../constants'
-import {FETCH_ALL, FETCH_CUSTOMER, INSERT_CUSTOMER, UPDATE_CUSTOMER, DELETE_CUSTOMER} from './api_routes'
+import {FETCH_ALL, FETCH_ONE, INSERT, UPDATE, DELETE} from './api_routes'
 
 export default {
   state: {
@@ -45,7 +45,7 @@ export default {
     removeCustomer(context, payload){
       let customerId = payload.id
       return new Promise((resolve, reject) => {
-        axios.delete(API_URL + DELETE_CUSTOMER + customerId)
+        axios.delete(API_URL + DELETE + customerId)
           .then(function () {
             context.commit('deleteCustomer', { id: customerId })
             resolve()
@@ -57,7 +57,7 @@ export default {
     getCustomer(context, payload){
       let customerId = payload.id
       return new Promise((resolve, reject) => {
-        let urlRequest = API_URL + FETCH_CUSTOMER + customerId
+        let urlRequest = API_URL + FETCH_ONE + customerId
         axios.get(urlRequest).then(function (response) {
           context.commit('setCurrentCustomer', {
             currentCustomer: response.data
@@ -71,7 +71,7 @@ export default {
     addCustomer(context, payload){
       let newCustomer = payload.newCustomer
       return new Promise((resolve, reject) => {
-        axios.post(API_URL + INSERT_CUSTOMER, newCustomer).then(() => {
+        axios.post(API_URL + INSERT, newCustomer).then(() => {
           context.commit('insertCustomer', {
             newCustomer: newCustomer
           })
@@ -85,7 +85,7 @@ export default {
       let updateCustomer = payload.updatecustomer
       let id = payload.id
       return new Promise((resolve, reject) => {
-        axios.put(API_URL + UPDATE_CUSTOMER + id, updateCustomer).then(() => {
+        axios.put(API_URL + UPDATE + id, updateCustomer).then(() => {
           context.commit('setCurrentCustomer', {
             currentCustomer: updateCustomer
           })
