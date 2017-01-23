@@ -10,11 +10,11 @@
 
           <div class="well col-lg-5">
             <h4>{{ $t('customerInfoFieldsetTitle', $lang) }}</h4>
-            <div class="form-group">
+            <div class="form-group" :class="validation.first_name ? '' : 'has-error'">
               <label for="first_name">{{ $t('firstNameInputLabel', $lang) }}</label>
               <input  v-model="customer.first_name" type="text" class="form-control" placeholder="First Name" id="first_name" tabindex="1">
             </div>
-            <div class="form-group">
+            <div class="form-group" :class="validation.last_name ? '' : 'has-error'">
               <label for="last_name">{{ $t('lastNameInputLabel', $lang) }}</label>
               <input  v-model="customer.last_name" type="text" class="form-control" placeholder="Last Name" id="last_name" tabindex="2">
             </div>
@@ -22,11 +22,11 @@
 
           <div class="well col-lg-5 col-lg-offset-2">
             <h4>{{ $t('customerContactFieldSetTitle', $lang) }}</h4>
-            <div class="form-group">
+            <div class="form-group" :class="validation.email ? '' : 'has-error'">
               <label for="email">{{ $t('emailInputLabel', $lang) }}</label>
               <input  v-model="customer.email" type="email" class="form-control" placeholder="example@mail.ru" id="email" tabindex="3">
             </div>
-            <div class="form-group">
+            <div class="form-group" :class="validation.phone ? '' : 'has-error'">
               <label for="phone">{{ $t('phoneInputLabel', $lang) }}</label>
               <input  v-model="customer.phone" type="text"
                       class="form-control"
@@ -40,21 +40,21 @@
         <div class="row">
           <div class="well col-lg-5">
             <h4>{{ $t('locationFieldsSetTitle', $lang) }}</h4>
-            <div class="form-group">
+            <div class="form-group" :class="validation.address ? '' : 'has-error'">
               <label for="address">{{ $t('addressInputLabel', $lang) }}</label>
               <input  v-model="customer.address" type="text" class="form-control" placeholder="Your address" id="address" tabindex="5">
             </div>
-            <div class="form-group">
+            <div class="form-group" :class="validation.city ? '' : 'has-error'">
               <label for="city">{{ $t('cityInputLabel', $lang) }}</label>
               <input  v-model="customer.city" type="text" class="form-control" placeholder="City name" id="city" tabindex="6">
             </div>
-            <div class="form-group">
+            <div class="form-group" :class="validation.state ? '' : 'has-error'">
               <label for="state">{{ $t('stateInputLabel', $lang) }}</label>
               <input v-model="customer.state" type="text" class="form-control" placeholder="State title" id="state" tabindex="7">
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary">{{ $t('editCustomerBtnLabel', $lang) }}</button>
-              <button type="button" @click="editAndExit" class="btn btn-success">{{ $t('editAndSaveBtn', $lang) }}</button>
+              <button :disabled="!validationForm" type="submit" class="btn btn-primary">{{ $t('editCustomerBtnLabel', $lang) }}</button>
+              <button :disabled="!validationForm" type="button" @click="editAndExit" class="btn btn-success">{{ $t('editAndSaveBtn', $lang) }}</button>
             </div>
           </div>
         </div>
@@ -116,6 +116,28 @@ export default {
     },
     issetCustomer(){
       return this.customer.id
+    },
+    validation: function () {
+      const reEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      const rePhone = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
+      return {
+        first_name: !!(this.customer.first_name.trim().length > 3),
+        last_name: !!(this.customer.last_name.trim().length > 3),
+        email: !!(reEmail.test(this.customer.email.trim())),
+        phone: !!(rePhone.test(this.customer.phone.trim())),
+        address: !!(this.customer.address.trim().length > 3),
+        city: !!(this.customer.city.trim().length > 3),
+        state: !!(this.customer.state.trim().length > 3),
+      }
+    },
+    validationForm: function () {
+      return this.validation.first_name
+              && this.validation.last_name
+              && this.validation.email
+              && this.validation.phone
+              && this.validation.address
+              && this.validation.city
+              && this.validation.state
     }
   }
 }

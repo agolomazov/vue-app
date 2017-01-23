@@ -58,7 +58,7 @@
         </div>
 
         <div class="form-group col-lg-5 col-lg-offset-2">
-          <button type="submit" class="btn btn-primary" v-bind:disabled="disabledSubmit">{{ $t('addCustomerBtnLabel', $lang) }}</button>
+          <button type="submit" class="btn btn-primary" v-bind:disabled="!validationForm">{{ $t('addCustomerBtnLabel', $lang) }}</button>
         </div>
       </div>
 
@@ -97,17 +97,6 @@
         })
 
       },
-      validateEmail: function (value) {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return re.test(value)
-      },
-      isEmpty: function (value) {
-        return value.trim() !== ''
-      },
-      validatePhone: function (value) {
-        var re = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
-        return re.test(value)
-      },
       ...mapActions({
           add: 'addCustomer'
         }
@@ -117,8 +106,27 @@
       document.getElementById('first_name').focus()
     },
     computed: {
-      disabledSubmit: function () {
-        return !this.isEmpty(this.customer.first_name) || !this.isEmpty(this.customer.last_name) || !this.validateEmail(this.customer.email) || !this.validatePhone(this.customer.phone) || !this.isEmpty(this.customer.address) || !this.isEmpty(this.customer.city) || !this.isEmpty(this.customer.state)
+      validation: function () {
+        const reEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        const rePhone = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
+        return {
+          first_name: !!(this.customer.first_name.trim().length > 3),
+          last_name: !!(this.customer.last_name.trim().length > 3),
+          email: !!(reEmail.test(this.customer.email.trim())),
+          phone: !!(rePhone.test(this.customer.phone.trim())),
+          address: !!(this.customer.address.trim().length > 3),
+          city: !!(this.customer.city.trim().length > 3),
+          state: !!(this.customer.state.trim().length > 3),
+        }
+      },
+      validationForm: function () {
+        return this.validation.first_name
+          && this.validation.last_name
+          && this.validation.email
+          && this.validation.phone
+          && this.validation.address
+          && this.validation.city
+          && this.validation.state
       }
     }
   }
