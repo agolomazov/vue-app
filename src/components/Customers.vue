@@ -38,7 +38,7 @@
     name: 'customers',
     computed: {
       customers(){
-        return this.$store.state.customers
+        return this.$store.state.customers.customers
       }
     },
     methods: {

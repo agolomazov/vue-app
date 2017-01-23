@@ -29,10 +29,10 @@
     name: 'read',
     computed: {
       customer(){
-        return this.$store.state.currentCustomer
+        return this.$store.state.customers.currentCustomer
       },
       issetCustomer(){
-        return this.$store.state.currentCustomer.first_name
+        return this.customer.id
       }
     },
     methods: {

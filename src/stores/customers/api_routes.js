@@ -1,0 +1,5 @@
+export const FETCH_ALL = 'customers'
+export const DELETE_CUSTOMER = 'customer/delete/'
+export const FETCH_CUSTOMER = 'customer/'
+export const INSERT_CUSTOMER = 'customer/add'
+export const UPDATE_CUSTOMER = 'customer/update/'

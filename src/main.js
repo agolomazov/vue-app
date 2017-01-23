@@ -10,6 +10,7 @@ import locales from './locales'
 import storeObject from './store'
 import Toastr from 'vue-toastr'
 require('vue-toastr/dist/vue-toastr.css')
+import CustomerModuleStore from './stores/customers'
 
 Vue.use(VueRouter)
 Vue.use(VueMask)
@@ -17,7 +18,11 @@ Vue.use(Vuex)
 Vue.use(VueI18n)
 Vue.component('vue-toastr',Toastr)
 
-const store = new Vuex.Store(storeObject)
+const store = new Vuex.Store({
+  modules: {
+    customers: CustomerModuleStore
+  }
+})
 
 Vue.config.lang = 'en'
 

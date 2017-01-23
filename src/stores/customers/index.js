@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { API_URL } from './constants'
+import { API_URL } from '../../constants'
+import {FETCH_ALL, FETCH_CUSTOMER, INSERT_CUSTOMER, UPDATE_CUSTOMER, DELETE_CUSTOMER} from './api_routes'
 
 export default {
   state: {
@@ -29,7 +30,7 @@ export default {
   actions: {
     getAllCustomers(context){
       return new Promise((resolve, reject) => {
-        axios.get(API_URL + 'customers')
+        axios.get(API_URL + FETCH_ALL)
           .then(function (response) {
             context.commit('fetchAllCustomers', {
               customers: response.data
@@ -37,26 +38,26 @@ export default {
             context.commit('setEmptyCurrentCustomer')
             resolve()
           }).catch(() => {
-            reject()
-          })
+          reject()
+        })
       })
     },
     removeCustomer(context, payload){
       let customerId = payload.id
       return new Promise((resolve, reject) => {
-        axios.delete(API_URL + 'customer/delete/' + customerId)
+        axios.delete(API_URL + DELETE_CUSTOMER + customerId)
           .then(function () {
             context.commit('deleteCustomer', { id: customerId })
             resolve()
           }).catch(function () {
-            reject()
-          })
+          reject()
+        })
       })
     },
     getCustomer(context, payload){
       let customerId = payload.id
       return new Promise((resolve, reject) => {
-        let urlRequest = API_URL + 'customer/' + customerId
+        let urlRequest = API_URL + FETCH_CUSTOMER + customerId
         axios.get(urlRequest).then(function (response) {
           context.commit('setCurrentCustomer', {
             currentCustomer: response.data
@@ -70,7 +71,7 @@ export default {
     addCustomer(context, payload){
       let newCustomer = payload.newCustomer
       return new Promise((resolve, reject) => {
-        axios.post(API_URL + 'customer/add', newCustomer).then(() => {
+        axios.post(API_URL + INSERT_CUSTOMER, newCustomer).then(() => {
           context.commit('insertCustomer', {
             newCustomer: newCustomer
           })
@@ -84,7 +85,7 @@ export default {
       let updateCustomer = payload.updatecustomer
       let id = payload.id
       return new Promise((resolve, reject) => {
-        axios.put(API_URL + 'customer/update/' + id, updateCustomer).then(() => {
+        axios.put(API_URL + UPDATE_CUSTOMER + id, updateCustomer).then(() => {
           context.commit('setCurrentCustomer', {
             currentCustomer: updateCustomer
           })
