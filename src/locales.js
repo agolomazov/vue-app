@@ -30,7 +30,14 @@ export default {
     deleteCustomerMessage: 'Buyer data has been successfully removed',
     addCustomerMessage: 'Buyer data successfully added',
     updateCustomerMessage: 'Buyer data successfully updated',
-    error404: '404 - This buyer is not in the database'
+    error404: '404 - This buyer is not in the database',
+    firstNameInputPlaceholder: 'Name customer',
+    lastNameInputPlaceholder: 'Last name customer',
+    emailInputPlaceholder: 'Email customer',
+    phoneInputPlaceholder: 'Phone customer',
+    addressInputPlaceholder: 'Address customer',
+    cityInputPlaceholder: 'City customer',
+    stateInputPlaceholder: 'State customer'
   },
   ru: {
     fullName: 'Полное имя',
@@ -63,6 +70,13 @@ export default {
     deleteCustomerMessage: 'Данные о покупателе успешно удалены',
     addCustomerMessage: 'Данные о покупателе успешно добавлены',
     updateCustomerMessage: 'Данные о покупателе успешно обновлены',
-    error404: '404 - Такого покупателя нет в базе'
+    error404: '404 - Такого покупателя нет в базе',
+    firstNameInputPlaceholder: 'Имя покупателя',
+    lastNameInputPlaceholder: 'Фамилия покупателя',
+    emailInputPlaceholder: 'Email покупателя',
+    phoneInputPlaceholder: 'Телефон покупателя',
+    addressInputPlaceholder: 'Адрес покупателя',
+    cityInputPlaceholder: 'Город проживания',
+    stateInputPlaceholder: 'Область/Республика проживания'
   }
 }

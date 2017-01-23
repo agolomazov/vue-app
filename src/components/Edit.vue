@@ -12,7 +12,7 @@
             <h4>{{ $t('customerInfoFieldsetTitle', $lang) }}</h4>
             <div class="form-group" :class="validation.first_name ? '' : 'has-error'">
               <label for="first_name">{{ $t('firstNameInputLabel', $lang) }}</label>
-              <input  v-model="customer.first_name" type="text" class="form-control" placeholder="First Name" id="first_name" tabindex="1">
+              <input  v-model="customer.first_name" type="text" class="form-control" :placeholder="$t('firstNameInputPlaceholder', $lang)" id="first_name" tabindex="1">
             </div>
             <div class="form-group" :class="validation.last_name ? '' : 'has-error'">
               <label for="last_name">{{ $t('lastNameInputLabel', $lang) }}</label>
