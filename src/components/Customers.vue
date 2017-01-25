@@ -1,5 +1,5 @@
 <template>
-  <div class="customers container">
+  <div class="customers container" v-show="loading">
     <h1 class="page-header">{{ $t('customerListPageTitle', $lang) }}</h1>
     <table class="table" v-if="customers.length > 0">
       <thead>
@@ -39,6 +39,11 @@
     computed: {
       customers(){
         return this.$store.state.customers.customers
+      },
+    },
+    data(){
+      return{
+        loading: false
       }
     },
     methods: {
@@ -54,12 +59,19 @@
       ])
     },
     created() {
+      let token = window.sessionStorage.getItem('token')
+      if(!token){
+        this.$router.push({ path: '/login' })
+        return
+      }
       if(window.localStorage.getItem('toast-message')){
         var message = window.localStorage.getItem('toast-message')
         window.localStorage.removeItem('toast-message')
         this.$root.$refs.toastr.s(message)
+        this.loading = true
       }
       this.getAllCustomers()
+
     }
   }
 </script>

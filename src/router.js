@@ -4,6 +4,7 @@ import About from './components/About.vue'
 import Add from './components/Add.vue'
 import Read from './components/Read.vue'
 import Edit from './components/Edit.vue'
+import Login from './components/Login.vue'
 
 const routes = [
   { path: '/', component: Customers },
@@ -11,6 +12,7 @@ const routes = [
   { path: '/add', component: Add },
   { path: '/read/:id', component: Read },
   { path: '/edit/:id', component: Edit },
+  { path: '/login', component: Login },
 ]
 
 const router = new VueRouter({
