@@ -37,6 +37,9 @@ const app = new Vue({
       return Vue.config.lang == 'en' ? 'Russian version' : 'English version'
     }
   },
+  data: {
+    loginUser: {}
+  },
   methods: {
     switchUI(e){
       e.preventDefault()
@@ -44,6 +47,15 @@ const app = new Vue({
         Vue.config.lang = 'ru'
       } else {
         Vue.config.lang = 'en'
+      }
+    },
+    logoutVk(){
+      var result = confirm('Вы действительно хотите выйти?')
+      if(result){
+        VK.Auth.logout()
+        this.loginUser = {}
+        window.sessionStorage.removeItem('token')
+        this.$router.push({ path: '/login' })
       }
     }
   }

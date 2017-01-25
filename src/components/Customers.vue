@@ -39,7 +39,7 @@
     computed: {
       customers(){
         return this.$store.state.customers.customers
-      },
+      }
     },
     data(){
       return{
@@ -68,10 +68,10 @@
         var message = window.localStorage.getItem('toast-message')
         window.localStorage.removeItem('toast-message')
         this.$root.$refs.toastr.s(message)
-        this.loading = true
+
       }
       this.getAllCustomers()
-
+      this.loading = true
     }
   }
 </script>
