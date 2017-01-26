@@ -63,7 +63,16 @@ const app = new Vue({
       var result = confirm(this.$t('confirmExitMessage', this.$lang))
       if(result){
         window.localStorage.setItem('toast-message', `${this.$t('exitGreetingMessage', this.$lang)} ${this.authUser.first_name}`)
-        VK.Auth.logout()
+        
+        switch(this.authUser.type){
+          case 'vkontakte':
+            VK.logout()
+            break
+          case 'facebook':
+            FB.logout(window.sessionStorage.getItem('token'))
+        }
+        
+        
         this.loginUser = {}
         this.loginFlag = false
         window.sessionStorage.removeItem('token')
