@@ -60,8 +60,9 @@ const app = new Vue({
     },
     logoutVk(e){
       e.preventDefault()
-      var result = confirm('Вы действительно хотите выйти?')
+      var result = confirm(this.$t('confirmExitMessage', this.$lang))
       if(result){
+        window.localStorage.setItem('toast-message', `${this.$t('exitGreetingMessage', this.$lang)} ${this.authUser.first_name}`)
         VK.Auth.logout()
         this.loginUser = {}
         this.loginFlag = false

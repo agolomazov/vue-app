@@ -26,9 +26,16 @@
             this.$root.$data.loginUser = response.session.user
             window.sessionStorage.setItem('auth', JSON.stringify(response.session.user))
             window.sessionStorage.setItem('token', response.session.sid)
-            window.localStorage.setItem('toast-message', `Поздравляю, ${response.session.user.first_name}! Вы успешно авторизировались`)
+            window.localStorage.setItem('toast-message', `${this.$t('welcomeMessage', this.$lang)} ${response.session.user.first_name}!`)
             this.$router.push({ path: '/' })
           }
+      }
+    },
+    created(){
+      if(window.localStorage.getItem('toast-message')){
+        var message = window.localStorage.getItem('toast-message')
+        window.localStorage.removeItem('toast-message')
+        this.$root.$refs.toastr.s(message)
       }
     }
   }

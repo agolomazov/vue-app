@@ -40,7 +40,10 @@ export default {
     cityInputPlaceholder: 'City customer',
     stateInputPlaceholder: 'State customer',
     exitLabel: 'exit',
-    enterLabel: 'Login'
+    enterLabel: 'Login',
+    confirmExitMessage: 'Do you really want to leave?',
+    exitGreetingMessage: 'Goodbye, ',
+    welcomeMessage: 'Welcome, '
   },
   ru: {
     fullName: 'Полное имя',
@@ -83,6 +86,9 @@ export default {
     cityInputPlaceholder: 'Город проживания',
     stateInputPlaceholder: 'Область/Республика проживания',
     exitLabel: 'выйти',
-    enterLabel: 'войти'
+    enterLabel: 'войти',
+    confirmExitMessage: 'Вы действительно хотите выйти?',
+    exitGreetingMessage: 'До свидания, ',
+    welcomeMessage: 'Добро пожаловать, '
   }
 }
