@@ -1,5 +1,5 @@
 <template>
-  <div class="add container">
+  <div class="add container" v-show="loading">
     <div class="edit-form" v-if="issetCustomer">
       <h1 class="page-header">{{ $t('editCustomerPageTitle', $lang) }}
         <router-link v-bind:to="'/read/' + $route.params.id" class="btn btn-sm btn-primary pull-right">{{ $t('readMoreBtn', $lang) }}</router-link>
@@ -72,6 +72,11 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'edit',
+  data(){
+    return {
+      loading: false
+    }
+  },
   methods: {
     editCustomer: function (e) {
       let self = this
@@ -108,7 +113,10 @@ export default {
   ])
   },
   created(){
-    this.getCustomer({ id: this.$route.params.id })
+    if(this.$root.checkLogin()){
+      this.getCustomer({ id: this.$route.params.id })
+      this.loading = true
+    }
   },
   computed: {
     customer (){
@@ -117,7 +125,7 @@ export default {
     issetCustomer(){
       return this.customer.id
     },
-    validation: function () {
+    validation () {
       const reEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       const rePhone = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
       return {
@@ -130,7 +138,7 @@ export default {
         state: !!(this.customer.state.trim().length > 3),
       }
     },
-    validationForm: function () {
+    validationForm () {
       return this.validation.first_name
               && this.validation.last_name
               && this.validation.email
@@ -138,7 +146,7 @@ export default {
               && this.validation.address
               && this.validation.city
               && this.validation.state
-    }
-  }
+    },
+  },
 }
 </script>

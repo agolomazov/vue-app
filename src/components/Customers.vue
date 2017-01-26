@@ -59,19 +59,15 @@
       ])
     },
     created() {
-      let token = window.sessionStorage.getItem('token')
-      if(!token){
-        this.$router.push({ path: '/login' })
-        return
+      if(this.$root.checkLogin()){
+        if(window.localStorage.getItem('toast-message')){
+          var message = window.localStorage.getItem('toast-message')
+          window.localStorage.removeItem('toast-message')
+          this.$root.$refs.toastr.s(message)
+        }
+        this.getAllCustomers()
+        this.loading = true
       }
-      if(window.localStorage.getItem('toast-message')){
-        var message = window.localStorage.getItem('toast-message')
-        window.localStorage.removeItem('toast-message')
-        this.$root.$refs.toastr.s(message)
-
-      }
-      this.getAllCustomers()
-      this.loading = true
     }
   }
 </script>

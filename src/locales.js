@@ -37,7 +37,9 @@ export default {
     phoneInputPlaceholder: 'Phone customer',
     addressInputPlaceholder: 'Address customer',
     cityInputPlaceholder: 'City customer',
-    stateInputPlaceholder: 'State customer'
+    stateInputPlaceholder: 'State customer',
+    exitLabel: 'exit',
+    enterLabel: 'Login'
   },
   ru: {
     fullName: 'Полное имя',
@@ -77,6 +79,8 @@ export default {
     phoneInputPlaceholder: 'Телефон покупателя',
     addressInputPlaceholder: 'Адрес покупателя',
     cityInputPlaceholder: 'Город проживания',
-    stateInputPlaceholder: 'Область/Республика проживания'
+    stateInputPlaceholder: 'Область/Республика проживания',
+    exitLabel: 'выйти',
+    enterLabel: 'войти'
   }
 }

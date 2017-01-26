@@ -14,6 +14,10 @@
       opacity: 0;
       height: 0;
     }
+    
+    .router-link-active{
+      color: #830b33 !important;
+    }
   </style>
   <script src="https://vk.com/js/api/openapi.js?137" type="text/javascript"></script>
 </head>
@@ -34,7 +38,7 @@
       <div id="navbar" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
           <li>
-            <router-link to="/">{{ $t("customerListPageTitle", $lang) }}</router-link>
+            <router-link to="/" v-if="loginFlag">{{ $t("customerListPageTitle", $lang) }}</router-link>
           </li>
           <li>
             <router-link to="/about">{{ $t("aboutLinkLabel", $lang) }}</router-link>
@@ -42,13 +46,16 @@
           <li>
             <a href="#" @click="switchUI">{{ switchLang }}</a>
           </li>
+          <li v-if="!loginFlag">
+            <router-link to="/login">{{ $t("enterLabel", $lang) }}</router-link>
+          </li>
           <li v-if="!!authUser.first_name && loginFlag">
-            <a href="#" @click="logoutVk">{{ authUser.first_name }} {{ authUser.last_name }} (Выйти)</a>
+            <a href="#" @click="logoutVk">{{ authUser.first_name }} {{ authUser.last_name }} ({{ $t('exitLabel', $lang) }})</a>
           </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <li>
+          <li v-if="loginFlag">
             <router-link to="/add">{{ $t("addCustomerLink", $lang) }}</router-link>
           </li>
         </ul>

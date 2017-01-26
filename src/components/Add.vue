@@ -1,5 +1,5 @@
 <template>
-  <div class="add container">
+  <div class="add container" v-show="loading">
     <h1 class="page-header">{{ $t('addCustomerLink', $lang) }}</h1>
     <form v-on:submit="addCustomer">
 
@@ -83,11 +83,12 @@
           address: '',
           city: '',
           state: ''
-        }
+        },
+        loading: false
       }
     },
     methods: {
-      addCustomer: function (e) {
+      addCustomer (e) {
         e.preventDefault()
         let newCustomer = Object.assign({}, this.customer)
         let self = this
@@ -102,11 +103,16 @@
         }
       )
     },
-    mounted: function () {
+    mounted() {
       document.getElementById('first_name').focus()
     },
+    created(){
+      if(this.$root.checkLogin()){
+        this.loading = true
+      }
+    },
     computed: {
-      validation: function () {
+      validation () {
         const reEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
         const rePhone = /^((\+7)|8)?\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{2}[-. ]?){2}$/
         return {
@@ -119,7 +125,7 @@
           state: !!(this.customer.state.trim().length > 3),
         }
       },
-      validationForm: function () {
+      validationForm () {
         return this.validation.first_name
           && this.validation.last_name
           && this.validation.email

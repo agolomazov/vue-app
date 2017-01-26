@@ -42,7 +42,7 @@ const app = new Vue({
       if(!!authData){
         authData = JSON.parse(authData)
       }
-      this.loginFlag = !!authData || !!this.loginUser
+      this.loginFlag = !!authData || !this.loginUser
       return authData || this.loginUser
     }
   },
@@ -70,6 +70,15 @@ const app = new Vue({
         window.localStorage.removeItem('auth')
         this.$router.push({ path: '/login' })
       }
+    },
+    checkLogin(){
+      let token = window.sessionStorage.getItem('token')
+      if(!token){
+        this.$router.push({ path: '/login' })
+        return false
+      }
+      
+      return true
     }
   }
 }).$mount('#app')
