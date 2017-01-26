@@ -37,12 +37,11 @@ const app = new Vue({
       return Vue.config.lang == 'en' ? 'Russian version' : 'English version'
     },
     authUser(){
-      var authData = window.localStorage.getItem('auth')
+      var authData = window.sessionStorage.getItem('auth')
       
       if(!!authData){
         authData = JSON.parse(authData)
       }
-      this.loginFlag = !!authData || !this.loginUser
       return authData || this.loginUser
     }
   },
@@ -67,17 +66,18 @@ const app = new Vue({
         this.loginUser = {}
         this.loginFlag = false
         window.sessionStorage.removeItem('token')
-        window.localStorage.removeItem('auth')
+        window.sessionStorage.removeItem('auth')
         this.$router.push({ path: '/login' })
       }
     },
     checkLogin(){
       let token = window.sessionStorage.getItem('token')
       if(!token){
+        this.loginFlag = false
         this.$router.push({ path: '/login' })
         return false
       }
-      
+      this.loginFlag = true
       return true
     }
   }

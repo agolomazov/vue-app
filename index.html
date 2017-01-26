@@ -46,7 +46,7 @@
           <li>
             <a href="#" @click="switchUI">{{ switchLang }}</a>
           </li>
-          <li v-if="!loginFlag">
+          <li v-if="!loginFlag || !!!authUser">
             <router-link to="/login">{{ $t("enterLabel", $lang) }}</router-link>
           </li>
           <li v-if="!!authUser.first_name && loginFlag">
