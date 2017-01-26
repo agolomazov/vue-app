@@ -24,6 +24,7 @@
       authVk(response){
           if(response && response.status == 'connected'){
             this.$root.$data.loginUser = response.session.user
+            window.localStorage.setItem('auth', JSON.stringify(response.session.user))
             window.sessionStorage.setItem('token', response.session.sid)
             window.localStorage.setItem('toast-message', `Поздравляю, ${response.session.user.first_name}! Вы успешно авторизировались`)
             this.$router.push({ path: '/' })

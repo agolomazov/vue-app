@@ -42,8 +42,8 @@
           <li>
             <a href="#" @click="switchUI">{{ switchLang }}</a>
           </li>
-          <li v-if="!!loginUser.first_name">
-            <a href="#" @click="logoutVk">{{ loginUser.first_name }} {{ loginUser.last_name }} (Выйти)</a>
+          <li v-if="!!authUser.first_name && loginFlag">
+            <a href="#" @click="logoutVk">{{ authUser.first_name }} {{ authUser.last_name }} (Выйти)</a>
           </li>
         </ul>
 

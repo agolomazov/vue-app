@@ -35,10 +35,20 @@ const app = new Vue({
   computed: {
     switchLang(){
       return Vue.config.lang == 'en' ? 'Russian version' : 'English version'
+    },
+    authUser(){
+      var authData = window.localStorage.getItem('auth')
+      
+      if(!!authData){
+        authData = JSON.parse(authData)
+      }
+      this.loginFlag = !!authData || !!this.loginUser
+      return authData || this.loginUser
     }
   },
   data: {
-    loginUser: {}
+    loginUser: {},
+    loginFlag: false
   },
   methods: {
     switchUI(e){
@@ -49,12 +59,15 @@ const app = new Vue({
         Vue.config.lang = 'en'
       }
     },
-    logoutVk(){
+    logoutVk(e){
+      e.preventDefault()
       var result = confirm('Вы действительно хотите выйти?')
       if(result){
         VK.Auth.logout()
         this.loginUser = {}
+        this.loginFlag = false
         window.sessionStorage.removeItem('token')
+        window.localStorage.removeItem('auth')
         this.$router.push({ path: '/login' })
       }
     }
